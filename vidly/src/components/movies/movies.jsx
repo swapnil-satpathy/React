@@ -13,22 +13,23 @@ export class Movies extends Component {
       return <h1>Showing {this.state.movies.length} movies in the database</h1>;
     }
   };
-  findIndex = (id) => {
-    let i = 0;
-    for (i = 0; i < this.state.movies.length; i++) {
-      if (this.state.movies[i]._id === id) {
-        return i;
-      }
-    }
-    return -1;
-  };
+  // findIndex = (id) => {
+  //   let i = 0;
+  //   for (i = 0; i < this.state.movies.length; i++) {
+  //     if (this.state.movies[i]._id === id) {
+  //       return i;
+  //     }
+  //   }
+  //   return -1;
+  // };
 
-  onDeleteHandler = (id) => {
-    const movies = this.state.movies;
-    let index = this.findIndex(id);
+  onDeleteHandler = (movie) => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    // let index = this.findIndex(id);
     console.log(index);
     movies.splice(index, 1);
-    console.log(movies);
+    // console.log(movies);
 
     // Simpler Way:
     // const movies=this.state.movies.filter(m => m._id!==id)
@@ -55,7 +56,7 @@ export class Movies extends Component {
                 genre={movie.genre}
                 stock={movie.numberInStock}
                 rate={movie.dailyRentalRate}
-                deleteHandler={() => this.onDeleteHandler(movie._id)}
+                deleteHandler={() => this.onDeleteHandler(movie)}
               ></Tablerow>
             ))}
           </tbody>
